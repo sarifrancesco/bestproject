@@ -12,7 +12,9 @@
     "lint:eslint": "eslint . --fix --cache"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@mdi/font": "^7.4.47",
+    "axios": "^1.16.1",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4",
     "vuetify": "^4.0.7"

@@ -1,28 +1,23 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue' // Pacchetto standard ufficiale di Vue
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
-
-  return {
-    plugins: [vue(), vueDevTools()],
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      }
-    },
-    server: {
-      proxy: {
-        '/api-football': {
-          target: 'https://free-api-live-football-data.p.rapidapi.com',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api-football/, ''),
-          headers: {
-            'x-rapidapi-key': env.VITE_RAPIDAPI_KEY,
-            'x-rapidapi-host': 'free-api-live-football-data.p.rapidapi.com'
-          }
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  server: {
+    proxy: {
+      '/api-calcio': {
+        target: 'https://api.football-data.org/v4',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-calcio/, ''),
+        headers: {
+          // MODIFICA: Metti qui il tuo token reale di football-data se ne hai uno attivo!
+          'X-Auth-Token': 'IL_TUO_TOKEN_QUI'
         }
       }
     }
